@@ -1,0 +1,10 @@
+4bc9d3c8789e4c0ebbecc2c1faae8181 *DESCRIPTION
+1a8d2479639afed65ffd175c850457e1 *LICENSE
+705e0395869a5751ee0b4765708883cf *NAMESPACE
+53b66ed1005d5e65ec19153c4964d797 *R/roc_functions.R
+8b7adbbb0877dda5c8c764d852e185bb *README.md
+1397e6ba3bcb734f873a396b40154e3a *man/extract_roc_text.Rd
+66ad0d454f0378c7ec26b3319d3ade5d *man/roc_eval_text.Rd
+2d81ba08054ecac29cda028dc82148b7 *tests/testthat.R
+f0e26a53d894ce4708ae35e58131d4d6 *tests/testthat/test-extract_roc_text.R
+93001ec326fe16178efa578e742be5f3 *tests/testthat/test-roc_eval_text.R
