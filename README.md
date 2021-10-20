@@ -1,33 +1,44 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Diffusing roxygen documentation content with roclang
+# Diffusing ‘roxygen’ documentation content with ‘roclang’
 
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
+[![R-CMD-check](https://github.com/zhuxr11/roclang/workflows/R-CMD-check/badge.svg)](https://github.com/zhuxr11/roclang/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
-**Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 12:36:36<br /> **Compiled**: 2021-08-03 14:24:58
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.2<br />
+**Author**: Xiurui Zhu<br /> **Modified**: 2021-10-20 15:16:29<br />
+**Compiled**: 2021-10-20 15:16:31
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
 [`rlang`](https://github.com/r-lib/rlang/), which works on diffusing R
 code, `roclang` works on diffusing
-[roxygen](https://github.com/r-lib/roxygen2/) documentations. Sections,
-parameters or dot parameters are extracted from function documentations
-and turned into valid Rd character strings, which are ready to diffuse
-into the roxygen documentation of another function by inserting inline
-code.
+[‘roxygen’](https://github.com/r-lib/roxygen2/) documentations.
+Sections, parameters or dot parameters are extracted from function
+documentations and turned into valid Rd character strings, which are
+ready to diffuse into the ‘roxygen’ documentation of another function by
+inserting inline code.
 
 ## Installation
 
-You can install the released version of roclang from
-[github](https://github.com/) with:
+You can install the released version of `roclang` from
+[CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("roclang")
+```
+
+Alternatively, you can install the developmental version of `roclang`
+from [github](https://github.com/) with:
 
 ``` r
 remotes::install_github("zhuxr11/roclang")
@@ -43,7 +54,12 @@ from the documentation of another function, e.g. `stats::lm`:
 library(roclang)
 
 # Inherit a standard section, and leave the first letter as is
-cat(extract_roc_text(stats::lm, type = "general", select = "description", capitalize = NA))
+cat(
+  extract_roc_text(stats::lm,
+                   type = "general",
+                   select = "description",
+                   capitalize = NA)
+)
 #> \code{lm} is used to fit linear models.
 #>   It can be used to carry out regression,
 #>   single stratum analysis of variance and
@@ -51,7 +67,12 @@ cat(extract_roc_text(stats::lm, type = "general", select = "description", capita
 #>   convenient interface for these).
 
 # Inherit a self-defined section, and capitalize the first letter
-cat(extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = TRUE))
+cat(
+  extract_roc_text(stats::lm,
+                   type = "section",
+                   select = "Using time series",
+                   capitalize = TRUE)
+)
 #> Considerable care is needed when using \code{lm} with time series.
 #> 
 #>   Unless \code{na.action = NULL}, the time series attributes are
@@ -72,7 +93,10 @@ cat(extract_roc_text(stats::lm, type = "section", select = "Using time series", 
 cat(
   paste0(
     "Here is the `formula` argument of `stats::lm`, defined as: ",
-    extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
+    extract_roc_text(stats::lm,
+                     type = "param",
+                     select = "formula",
+                     capitalize = FALSE)
   )
 )
 #> Here is the `formula` argument of `stats::lm`, defined as: an object of class \code{"\link[stats]{formula}"} (or one that
@@ -84,7 +108,10 @@ cat(
 cat(
   paste0(
     "`lm_arg` is a named list of ",
-    extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
+    extract_roc_text(stats::lm,
+                     type = "dot_params",
+                     select = c("-formula", "-data"),
+                     capitalize = FALSE)
   )
 )
 #> `lm_arg` is a named list of arguments passed on to \code{\link[stats:lm]{stats::lm}}
@@ -134,10 +161,10 @@ cat(
 #>   }
 ```
 
-## Use cases in roxygen comments
+## Use cases in ‘roxygen’ comments
 
-In roxygen comments, one can use inline code to diffuse the extracted
-contents into his or her own documentations:
+In ‘roxygen’ comments, one can use inline code to diffuse the extracted
+content into his or her own documentations:
 
 ``` r
 #' Cited Version of \code{stats::lm} for
@@ -203,7 +230,7 @@ lm_copy <- function(formula, df, lm_arg) {
 }
 '
 
-# Parse the roxygen comments to Rd documentation
+# Parse the 'roxygen' comments to Rd documentation
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 #> % Generated by roxygen2: do not edit by hand
 #> % Please edit documentation in ./<text>
@@ -351,17 +378,16 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 
 ## Further possibilities
 
-Since `extract_roc_text()` returns Rd text, which is by nature of type
-“character”, more *ad hoc* manipulations can be performed in the
-inline code using functions such as those from
-[`stringr`](https://github.com/tidyverse/stringr) package. This makes
-`roclang` even more flexible in diffusing roxygen documentation content.
-With all manipulations settled, run `roc_eval_text()` to parse the
-roxygen comments into Rd.
+Since `extract_roc_text()` returns Rd character strings, more *ad hoc*
+manipulations can be performed in the inline code using functions such
+as those from [`stringr`](https://github.com/tidyverse/stringr) package.
+This makes `roclang` even more flexible in diffusing ‘roxygen’
+documentation content. With all manipulations settled, run
+`roc_eval_text()` to parse the ‘roxygen’ comments into Rd.
 
 ## Session info
 
-This file is compiled with the following packages and versions:
+This file was compiled with the following packages and versions:
 
 ``` r
 utils::sessionInfo()
@@ -382,16 +408,16 @@ utils::sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roclang_0.1.0
+#> [1] roclang_0.1.2
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
+#>  [1] Rcpp_1.0.7       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
 #>  [5] knitr_1.29       magrittr_2.0.1   tidyselect_1.1.0 R6_2.4.1        
-#>  [9] rlang_0.4.10     fansi_0.4.2      blob_1.2.1       stringr_1.4.0   
-#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.15        utf8_1.1.4      
-#> [17] DBI_1.1.0        htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1
-#> [21] yaml_2.2.1       digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0 
-#> [25] crayon_1.3.4     tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8     
-#> [29] glue_1.4.1       evaluate_0.14    rmarkdown_2.3    stringi_1.4.6   
-#> [33] compiler_4.0.5   pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
+#>  [9] rlang_0.4.11     fansi_0.4.2      stringr_1.4.0    dplyr_1.0.7     
+#> [13] tools_4.0.5      xfun_0.15        utf8_1.1.4       DBI_1.1.0       
+#> [17] htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1      
+#> [21] digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0  crayon_1.4.1    
+#> [25] tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8      glue_1.4.2      
+#> [29] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5  
+#> [33] pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
 ```
