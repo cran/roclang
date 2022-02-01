@@ -41,8 +41,8 @@ test_that("extract_roc_text uses character function name input", {
   expect_match(extract_roc_text("stats::lm", "general", "title", NA),
                "^Fitting Linear Models$")
   # Character function name without package name
-  expect_match(extract_roc_text("paste", "param", "sep", NA),
-               "^a character string to separate the terms")
+  expect_match(extract_roc_text("library", "param", "package", NA),
+               "^the name of a package")
 })
 
 test_that("extract_roc_text errors with fun as non-function/character input", {
@@ -61,7 +61,7 @@ test_that("extract_roc_text errors with fun as non-function/character input", {
 })
 
 test_that("extract_roc_text errors wtih fun as character vector", {
-  expect_error(extract_roc_text(c("stats::lm", "paste"), "general", "title", NA), "fun .*length 1")
+  expect_error(extract_roc_text(c("stats::lm", "library"), "general", "title", NA), "fun .*length 1")
 })
 
 test_that("extract_roc_text errors wtih multiple/blank selections unless type = 'dot_params'", {
@@ -108,4 +108,24 @@ test_that("extract_roc_text errors when selecting non-existing function or funct
   foobar <<- function() {}
   expect_error(extract_roc_text("foobar", "general", "title", NA), "package")
   rm(foobar, envir = .GlobalEnv)
+})
+
+test_that("extract_roc_text errors with function that appear in multiple packages", {
+  fun_pkg_count <- sum(stringr::str_detect(utils::find("filter", mode = "function"), "^package:"))
+  if (fun_pkg_count == 0L) {
+    # This is unlikely to happen, since "stats" package should provide a "filter" function from the beginning
+    expect_error(extract_roc_text(filter, "general", "title", NA), NULL)
+  } else {
+    # "dplyr" package provides another version of "filter" function, which should trigger an error if package is not specified
+    dplyr_ns_lgl <- "dplyr" %in% loadedNamespaces()
+    if (fun_pkg_count == 1L) {
+      expect_error(extract_roc_text(filter, "general", "title", NA), NA)
+      if (require("dplyr") == FALSE) {
+        install.packages("dplyr")
+        library(dplyr)
+      }
+    }
+    expect_error(extract_roc_text(filter, "general", "title", NA), "more than one packages")
+    if (dplyr_ns_lgl == FALSE) try(detach("dplyr", unload = TRUE), silent = TRUE)
+  }
 })
