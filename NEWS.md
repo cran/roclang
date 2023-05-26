@@ -1,3 +1,12 @@
+# roclang 0.2.2
+
+## Enhancements:
+
+* Change package loading in `README.Rmd` to `pkgload` so that the developmental version can be correctly loaded.
+
+* Add badge of total downloads to `README.Rmd`.
+
+
 # roclang 0.2.1
 
 ## Enhancements:

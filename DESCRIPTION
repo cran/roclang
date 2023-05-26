@@ -1,7 +1,7 @@
 Package: roclang
 Title: Functions for Diffusing Function Documentations into 'Roxygen'
         Comments
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: 
     person(given = "Xiurui",
            family = "Zhu",
@@ -23,7 +23,7 @@ Imports: dplyr (>= 1.0.2), tidyr (>= 1.1.2), purrr (>= 0.3.4), tibble
 URL: https://github.com/zhuxr11/roclang
 BugReports: https://github.com/zhuxr11/roclang/issues
 NeedsCompilation: no
-Packaged: 2023-01-21 10:48:26 UTC; Xiurui Zhu
+Packaged: 2023-05-26 11:39:33 UTC; Xiurui Zhu
 Author: Xiurui Zhu [aut, cre]
 Repository: CRAN
-Date/Publication: 2023-01-21 11:20:02 UTC
+Date/Publication: 2023-05-26 12:10:02 UTC

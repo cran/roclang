@@ -1,11 +1,11 @@
-7a6007f75e026d5b00325706e5e0c5e7 *DESCRIPTION
+d7ef81eacac88032dbf6247634e2d884 *DESCRIPTION
 1a8d2479639afed65ffd175c850457e1 *LICENSE
 b7787007c66f68fd65e6dc9b716fdd19 *NAMESPACE
-aebb1818d1787903ba142a2d1cef8a61 *NEWS.md
+2a73598b5396ab2e5c19fb67980e2be0 *NEWS.md
 e85af9eee7894d9af57e731d550b9c58 *R/package-roclang.R
 ee24a69e3478afbf4de85f6527b38112 *R/roc_eval_functions.R
 5bd70c26d2a61e1c1221c927c35ff911 *R/roc_text_functions.R
-326c478558d8420b1cc63bf716269bda *README.md
+43826df3c14c82f56603160e5614887b *README.md
 bc3aa23d93048fcb533af61e0beb3213 *man/extract_roc_text.Rd
 684f450c2b789420acceb4c0eeab01a3 *man/roc_eval_text.Rd
 4bdf09664ddfd6b7eef0398971829282 *man/roclang-package.Rd
